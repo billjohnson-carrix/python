@@ -3,7 +3,7 @@ import csv
 
 def process_file(input_file, output_file, nonmatched_file):
     
-    line_pattern = re.compile('^ ([0-9]{2}/[0-9]{2}/[0-9]{4}| {10}) {2}[A-Z]{3,4} {3,4}([A-Z0-9]{5,9}).*')
+    line_pattern = re.compile('^ ?([0-9]{2}/[0-9]{2}/[0-9]{4}| {10}) {2}[A-Z]{3,4} {3,4}([A-Za-z0-9]{5,9}).*')
     
     results = []
     notmatched = []
@@ -33,8 +33,8 @@ def process_file(input_file, output_file, nonmatched_file):
                 if current_license_plate is not None:
                     #print(match_line.group(0))
                     matched_line = match_line.group(0)
-                    in_time = matched_line[64:72]
-                    out_time = matched_line[79:87]
+                    in_time = strip(matched_line[63:72])
+                    out_time = strip(matched_line[78:87])
                     
                     record = {
                         'date': current_date,
@@ -75,8 +75,8 @@ def process_file(input_file, output_file, nonmatched_file):
 
 # Example usage:
 if __name__ == "__main__":
-    input_file = "B63 truck license plate report.txt"    # Replace with your input file path
-    output_file = "B63 truck turns.csv"  # Replace with your desired output file path
-    nonmatchedlines_file = "B63 truck turns nonmatched lines.txt"
+    input_file = "mgb055br c60 april 2024.txt"    # Replace with your input file path
+    output_file = "c60 april 2024.csv"  # Replace with your desired output file path
+    nonmatchedlines_file = "c60 april 2024 nonmatched lines.txt"
     
     process_file(input_file, output_file, nonmatchedlines_file)
